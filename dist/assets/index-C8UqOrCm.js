@@ -29983,7 +29983,7 @@ function jK(e) {
   return e.charCodeAt(0) === 65279 && (e = e.slice(1)), e;
 }
 var Gn = {
-    isArray: Wb,
+    // isArray: Wb,
     isArrayBuffer: kK,
     isBuffer: OK,
     isFormData: RK,
