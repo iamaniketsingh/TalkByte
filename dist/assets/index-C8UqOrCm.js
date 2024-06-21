@@ -29785,97 +29785,96 @@ function Z2(e) {
     );
   return e;
 }
-require("websocket").w3cwebsocket;
-var eT = require("websocket").w3cwebsocket,
-  xK = (function (e) {
-    CK(t, e);
-    function t(r) {
-      var i;
-      return (
-        (i = e.call(this, r) || this),
-        (i.state = { ws: new eT(i.props.url), attempts: 1 }),
-        (i.sendMessage = i.sendMessage.bind(Z2(i))),
-        (i.setupWebsocket = i.setupWebsocket.bind(Z2(i))),
-        i
-      );
-    }
-    var n = t.prototype;
-    return (
-      (n.logging = function (i) {
-        this.props.debug === !0 && console.log(i);
-      }),
-      (n.generateInterval = function (i) {
-        return this.props.reconnectIntervalInMilliSeconds > 0
-          ? this.props.reconnectIntervalInMilliSeconds
-          : Math.min(30, Math.pow(2, i) - 1) * 1e3;
-      }),
-      (n.setupWebsocket = function () {
-        var i = this,
-          o = this.state.ws;
-        (o.onopen = function () {
-          i.logging("Websocket connected..."),
-            typeof i.props.onOpen == "function" && i.props.onOpen();
-        }),
-          (o.onerror = function (s) {
-            typeof i.props.onError == "function" && i.props.onError(s);
-          }),
-          (o.onmessage = function (s) {
-            i.props.onMessage(s.data);
-          }),
-          (this.shouldReconnect = this.props.reconnect),
-          (o.onclose = function (s) {
-            if (
-              (i.logging(
-                "Websocket disconnected,the reason: " +
-                  s.reason +
-                  ",the code: " +
-                  s.code
-              ),
-              typeof i.props.onClose == "function" &&
-                i.props.onClose(s.code, s.reason),
-              i.shouldReconnect)
-            ) {
-              var u = i.generateInterval(i.state.attempts);
-              i.timeoutID = setTimeout(function () {
-                i.setState({ attempts: i.state.attempts + 1 }),
-                  i.setState({ ws: new eT(i.props.url) }),
-                  i.setupWebsocket();
-              }, u);
-            }
-          });
-      }),
-      (n.componentDidMount = function () {
-        var i = this.props.childRef;
-        i && i(this), this.setupWebsocket();
-      }),
-      (n.componentWillUnmount = function () {
-        var i = this.props.childRef;
-        i && i(void 0),
-          (this.shouldReconnect = !1),
-          clearTimeout(this.timeoutID);
-        var o = this.state.ws;
-        o.close();
-      }),
-      (n.sendMessage = function (i) {
-        var o = this.state.ws;
-        o.send(i);
-      }),
-      (n.render = function () {
-        return x.createElement("div", null);
-      }),
-      t
-    );
-  })(x.Component),
-  Hb = { exports: {} },
-  uA = function (t, n) {
-    return function () {
-      for (var i = new Array(arguments.length), o = 0; o < i.length; o++)
-        i[o] = arguments[o];
-      return t.apply(n, i);
-    };
-  },
-  TK = uA,
-  ss = Object.prototype.toString;
+// var eT = require("websocket").w3cwebsocket,
+//   xK = (function (e) {
+//     CK(t, e);
+//     function t(r) {
+//       var i;
+//       return (
+//         (i = e.call(this, r) || this),
+//         (i.state = { ws: new eT(i.props.url), attempts: 1 }),
+//         (i.sendMessage = i.sendMessage.bind(Z2(i))),
+//         (i.setupWebsocket = i.setupWebsocket.bind(Z2(i))),
+//         i
+//       );
+//     }
+//     var n = t.prototype;
+//     return (
+//       (n.logging = function (i) {
+//         this.props.debug === !0 && console.log(i);
+//       }),
+//       (n.generateInterval = function (i) {
+//         return this.props.reconnectIntervalInMilliSeconds > 0
+//           ? this.props.reconnectIntervalInMilliSeconds
+//           : Math.min(30, Math.pow(2, i) - 1) * 1e3;
+//       }),
+//       (n.setupWebsocket = function () {
+//         var i = this,
+//           o = this.state.ws;
+//         (o.onopen = function () {
+//           i.logging("Websocket connected..."),
+//             typeof i.props.onOpen == "function" && i.props.onOpen();
+//         }),
+//           (o.onerror = function (s) {
+//             typeof i.props.onError == "function" && i.props.onError(s);
+//           }),
+//           (o.onmessage = function (s) {
+//             i.props.onMessage(s.data);
+//           }),
+//           (this.shouldReconnect = this.props.reconnect),
+//           (o.onclose = function (s) {
+//             if (
+//               (i.logging(
+//                 "Websocket disconnected,the reason: " +
+//                   s.reason +
+//                   ",the code: " +
+//                   s.code
+//               ),
+//               typeof i.props.onClose == "function" &&
+//                 i.props.onClose(s.code, s.reason),
+//               i.shouldReconnect)
+//             ) {
+//               var u = i.generateInterval(i.state.attempts);
+//               i.timeoutID = setTimeout(function () {
+//                 i.setState({ attempts: i.state.attempts + 1 }),
+//                   i.setState({ ws: new eT(i.props.url) }),
+//                   i.setupWebsocket();
+//               }, u);
+//             }
+//           });
+//       }),
+//       (n.componentDidMount = function () {
+//         var i = this.props.childRef;
+//         i && i(this), this.setupWebsocket();
+//       }),
+//       (n.componentWillUnmount = function () {
+//         var i = this.props.childRef;
+//         i && i(void 0),
+//           (this.shouldReconnect = !1),
+//           clearTimeout(this.timeoutID);
+//         var o = this.state.ws;
+//         o.close();
+//       }),
+//       (n.sendMessage = function (i) {
+//         var o = this.state.ws;
+//         o.send(i);
+//       }),
+//       (n.render = function () {
+//         return x.createElement("div", null);
+//       }),
+//       t
+//     );
+//   })(x.Component),
+//   Hb = { exports: {} },
+//   uA = function (t, n) {
+//     return function () {
+//       for (var i = new Array(arguments.length), o = 0; o < i.length; o++)
+//         i[o] = arguments[o];
+//       return t.apply(n, i);
+//     };
+//   },
+//   TK = uA,
+//   ss = Object.prototype.toString;
 function Wb(e) {
   return ss.call(e) === "[object Array]";
 }
